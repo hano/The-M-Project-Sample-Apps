@@ -1,12 +1,3 @@
-// ==========================================================================
-// The M-Project - Mobile HTML5 Application Framework
-// Generated with: Espresso 0.0.9
-//
-// Project: mobileCRM
-// Controller: UtilityController
-// ==========================================================================
-
-
 M.UtilityManager = M.Controller.extend({
 
     sortCriterias: {},
@@ -68,11 +59,9 @@ M.UtilityManager = M.Controller.extend({
     },
 
     init: function(isFirstLoad) {
-        //TODO: -- mobileCRM.SSOController.init();
         this.getSetActualDate();
         this.updateBrowserLanguage();
         this.addLanguageClassToBody();
-        //TODO: -- this.set('sortCriteriaBP', mobileCRM.StorageController.getLocalStorageValue('sortCriteriaBP'));
     }
 
     ,updateBrowserLanguage: function(){
@@ -166,16 +155,11 @@ M.UtilityManager = M.Controller.extend({
 
     }
 
-    ,clickedFischerLogo: function(){
-        //TODO: -- mobileCRM.PageController.gotoDashboardPage();
-    }
-
     ,trim: function (str) {
         return str.replace (/^\s+/, '').replace (/\s+$/, '');
     }
 
     ,back: function(){
-        //TODO: -- mobileCRM.PageController.back();
     },
 
     setCriteria: function(id, field){

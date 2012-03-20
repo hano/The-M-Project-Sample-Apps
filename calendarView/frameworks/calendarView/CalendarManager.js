@@ -1,9 +1,3 @@
-    // ==========================================================================
-// The M-Project - Mobile HTML5 Application Framework
-// Generated with: Espresso 0.0.9
-//
-// Project: mobileCRM
-// Controller: CalendarManager
 M.CalendarManager = M.Controller.extend({
 
     dispDay: null,
@@ -39,15 +33,8 @@ M.CalendarManager = M.Controller.extend({
         var onSuccess = function(data) {
             if(data && data.Activity)
             {
-                //TODO: -- mobileCRM.ActivityController.set('businessPartner', []);
-                //TODO: -- mobileCRM.ActivityController.set('contactList', []);
-                //TODO: -- mobileCRM.ActivityController.set('actActivity', data.Activity);
-                //redirect Page
-                //M.Logger.log('switch to activity: ' + objectId, M.INFO);
-                //TODO: -- mobileCRM.PageController.gotoTerminDetailsPage();
             }
         }
-        //TODO: -- mobileCRM.StorageController.getActivity({objectID: objectId, onSuccess: onSuccess});
     }
 
     ,getDayIndexofButtonGroup : function(viewId){
@@ -88,7 +75,6 @@ M.CalendarManager = M.Controller.extend({
 
     ,switchToTodayAndCalendarView: function(){
         this.switchToToday();
-        //TODO: -- mobileCRM.PageController.gotoTerminePage();
     }
 
     ,switchToToday: function(){
@@ -144,12 +130,9 @@ M.CalendarManager = M.Controller.extend({
         var obj = {
             date: dateToShow
         }
-        //TODO: -- mobileCRM.ActivityController.getActivitiesSingleDay(obj);
     }
 
     ,clickAddActivity: function(){
-        //TODO: -- mobileCRM.ActivityController.newActivityReset();
-        //TODO: -- mobileCRM.PageController.gotoActivityCreatePage();
     }
 
     ,clickDatePicker: function(viewId){
@@ -242,15 +225,12 @@ M.CalendarManager = M.Controller.extend({
             startDate = endDate = '01.01.2000';
         }
 
-        //TODO: var beginDate   = mobileCRM.RemoteController.getDateTime(startDate, startTime);
-        //TODO: var endDate     = mobileCRM.RemoteController.getDateTime(stopDate,  stopTime);
+
         if (beginDate >= endDate) {
             if (beginTimeHasChanged) {
                 endDate  = beginDate + 30 * 60 * 1000;
-                //TODO: mobileCRM.UtilityController.setSelection('ActivityCreatePage', 'endTimeInput', M.Date.create(endDate).format('HH:MM:00'));
             } else {
                 beginDate = endDate  - 30 * 60 * 1000;
-                //TODO: mobileCRM.UtilityController.setSelection('ActivityCreatePage', 'beginTimeInput', M.Date.create(beginDate).format('HH:MM:00'));
             }
         }
     }
@@ -310,7 +290,6 @@ M.CalendarManager = M.Controller.extend({
 
 
         this.initializeDatePage(viewId);
-        //TODO: -- mobileCRM.PageController.gotoCalendarPage();
     }
 
     ,initializeDatePage: function(viewId, weeknum, buttonPosition){

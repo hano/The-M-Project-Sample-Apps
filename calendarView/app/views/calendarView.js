@@ -119,43 +119,7 @@ calendarView.calendarView = M.PageView.design({
 
             })
 
-            /*,datePickerPopUp: M.FischerPopupView.design({
-
-                cssClass: 'CalendarDatePicker',
-
-                childViews: 'closeButton dialogTitle',
-
-                isHidden: YES,
-
-                closeButton: M.ButtonView.design({
-                    isIconOnly:YES,
-                    icon: 'delete',
-                    position: M.LEFT,
-                    target: M.CalendarManager,
-                    action: 'toggleDatePickerPopup'
-                }),
-
-                dialogTitle: M.LabelView.design({
-                    value: M.I18N.l('calendar'),
-                    position: M.CENTER
-                })
-
-                ,contentView: M.DatePickerView.design({
-                    cssClass: 'datePickerPopUP',
-
-                    contentBinding: 'M.CalendarManager.currentDate',
-                    isDateTimePicker: NO,
-                    target: M.CalendarManager,
-                    action: 'setValueAndToggleDatePicker'
-                })
-            })*/
-
         })
-
-    /*footer: M.ToolbarView.design({
-        value: 'FOOTER',
-        anchorLocation: M.BOTTOM
-    })*/
 
 });
 
