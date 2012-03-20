@@ -1,0 +1,326 @@
+// ==========================================================================
+// The M-Project - Mobile HTML5 Application Framework
+// Generated with: Espresso 0.0.9
+//
+// Project: mobileCRM
+// Controller: UtilityController
+// ==========================================================================
+
+
+M.UtilityManager = M.Controller.extend({
+
+    sortCriterias: {},
+    sortCriteria:   null,
+    language: null,
+    aktDate: '',
+    aktDateTxt: '',
+    year: '',
+    SORT_ASC:  'ASC',
+    SORT_DESC: 'DESC',
+    SORT_CRITERIAS_BP: [
+        { field: 'nameOrg1', criteria: M.I18N.l('gp_name')      },
+        { field: 'objectID',    criteria: M.I18N.l('gp_num')    },
+//      { field: 'nameorg2', criteria: M.I18N.l('description')  },
+        { field: 'street',   criteria: M.I18N.l('street')       },
+        { field: 'postCode', criteria: M.I18N.l('zip')          },
+        { field: 'city1',    criteria: M.I18N.l('location')     },
+        { field: 'tel',      criteria: M.I18N.l('tel_num')      }
+    ],
+    sortCriteriaBP: null,
+
+    SORT_CRITERIAS_CP: [
+//        { field: 'nameOrg1', criteria: M.I18N.l('gp_name')      },
+//        { field: 'objectID',    criteria: M.I18N.l('gp_num')    },
+        { field: 'street',   criteria: M.I18N.l('street')       },
+        { field: 'postCode', criteria: M.I18N.l('zip')          },
+        { field: 'city1',    criteria: M.I18N.l('location')     },
+        { field: 'tel',      criteria: M.I18N.l('tel_num')      }
+    ],
+    sortCriteriaCP: null,
+
+    getSetActualDate: function () {
+        if (M.Config.testDate) {
+            this.set('aktDate', M.Date.create(M.Config.testDate));
+        } else {
+            this.set('aktDate', M.Date.now());
+        }
+        this.set('aktDateTxt',  this.aktDate.format('dd.mm.yyyy'));
+        this.set('year',        this.aktDate.format('yyyy'));
+        return this.aktDate;
+    },
+
+    getSetSelectedDate: function(date) {
+        if (date) {
+            this.selectedDate = date;
+        }
+        if (!this.selectedDate) {
+            this.selectedDate = this.getSetActualDate();
+        }
+        return this.selectedDate;
+    },
+
+    getActualTime: function () {
+        if (M.Config.testTime) {
+             return M.Date.create(M.Config.testTime).date.getTime();
+         } else {
+            return new Date().getTime();
+         }
+    },
+
+    init: function(isFirstLoad) {
+        //TODO: -- mobileCRM.SSOController.init();
+        this.getSetActualDate();
+        this.updateBrowserLanguage();
+        this.addLanguageClassToBody();
+        //TODO: -- this.set('sortCriteriaBP', mobileCRM.StorageController.getLocalStorageValue('sortCriteriaBP'));
+    }
+
+    ,updateBrowserLanguage: function(){
+        var lang = M.I18N.getLanguage();
+        if(!localStorage.getItem(M.LOCAL_STORAGE_PREFIX + M.Application.name + M.LOCAL_STORAGE_SUFFIX + 'lang')){
+            if(lang != 'de_de' && lang != 'en_en' && lang != 'it_it' && lang != 'en_us'){
+                M.I18N.setLanguage('en_en');
+            }else if(localStorage){
+                M.I18N.setLanguage(lang);
+                localStorage.setItem(M.LOCAL_STORAGE_PREFIX + M.Application.name + M.LOCAL_STORAGE_SUFFIX + 'lang', lang);
+            }
+        }
+    }
+
+    ,addLanguageClassToBody: function(language){
+        var lang = language;
+        if(!lang){
+            lang = M.I18N.getLanguage();
+        }
+        $('body').addClass(lang);
+    }
+
+    ,setLanguage: function(lang) {
+        if(/^([A-za-z]{2})_([A-za-z]{2})$/.test(lang)){
+            this.language = lang;
+        }else{
+            this.setSAPLanguage(lang);
+        }
+    }
+
+    ,setSAPLanguage: function(lang){
+        switch(lang){
+            case 'DE': this.setLanguage('de_de');
+            break;
+            case 'EN': this.setLanguage('en_en');
+            break;
+            case 'IT': this.setLanguage('it_it');
+            break;
+        }
+    }
+
+
+    ,getLanguage: function(){
+        return this.language;
+    }
+
+    ,getSAPLanguage: function(){
+        if(this.language == 'de_de'){
+            return 'DE';
+        }else if(this.language == 'en_en'){
+            return 'EN';
+        }else if(this.language == 'it_it'){
+            return 'IT';
+        }else{
+            return 'DE'
+        }
+    }
+
+    ,changeLanguageFormat: function(lang){
+//        looks like that en_en; return EN
+        if(lang.search('_') == 2 && lang.length == 5){
+            lang.split('_')[0].toUpperCase();
+        }
+//        if it looks like EN return en_en
+        else if(lang.length == 2){
+            return lang.toLowerCase() + '_' + lang.toLowerCase();
+        }
+        else{
+            return -1;
+        }
+    }
+
+    ,hideElements:function(vid){
+        var view = M.ViewManager.getViewById(vid);
+        if(view.elementsToHide){
+            var elem = view.elementsToHide.split(' ');
+            for(i in elem){
+                var id = M.ViewManager.getView(view.elementsToHideOnPage, elem[i]).id;
+                $('#'+id).slideToggle('fast', function(){
+                    var bpos = $('#' + view.id).find('.ui-icon').css('background-position');
+                    if(bpos == '-108px 0px'){
+                        $('#' + view.id).parent().find('span.ui-btn-inner').find('.ui-icon').css('background-position', '-216px 0');
+                        //-216px 0
+                    }else{
+                        $('#' + view.id).parent().find('span.ui-btn-inner').find('.ui-icon').css('background-position', '-108px 0');
+                        //-108
+                    }
+                });
+            }
+        }
+
+    }
+
+    ,clickedFischerLogo: function(){
+        //TODO: -- mobileCRM.PageController.gotoDashboardPage();
+    }
+
+    ,trim: function (str) {
+        return str.replace (/^\s+/, '').replace (/\s+$/, '');
+    }
+
+    ,back: function(){
+        //TODO: -- mobileCRM.PageController.back();
+    },
+
+    setCriteria: function(id, field){
+
+        //get Item
+        var item   = M.ViewManager.getViewById(id);
+        var curImg = $('#' + id).find('img')[0];
+        var descr  = item.sortCriteria.value;
+
+        $('.orderByIcon').each(function(){
+            $(this)[0].src = 'theme/images/orderBy_blank.png';
+        });
+
+        if(this.sortCriteria == null || id != this.sortCriteria.id){
+            this.sortCriteria = {
+                id:             id,
+                description:    descr,
+                field:          field,
+                direction:      this.SORT_ASC
+            }
+            curImg.src = 'theme/images/orderBy_up.png';
+        } else {
+            // toggle direction
+            if(this.sortCriteria.direction == this.SORT_DESC){
+                this.sortCriteria.direction = this.SORT_ASC;
+                curImg.src = 'theme/images/orderBy_up.png';
+            } else {
+                this.sortCriteria.direction = this.SORT_DESC;
+                curImg.src = 'theme/images/orderBy_down.png';
+            }
+        }
+    },
+
+    setSortCriterias: function(sortCriterias, selectedCriteria) {
+        for (var i in sortCriterias) {
+            var criteria = sortCriterias[i];
+            criteria.image = 'theme/images/orderBy_blank.png';
+            if (selectedCriteria && selectedCriteria.field && criteria && criteria.field && criteria.field == selectedCriteria.field) {
+                if (selectedCriteria.direction == this.SORT_ASC)
+                    criteria.image = 'theme/images/orderBy_up.png';
+                else
+                    criteria.image = 'theme/images/orderBy_down.png';
+            }
+        };
+        this.sortCriteria = selectedCriteria;
+        this.set('sortCriterias', sortCriterias)
+    },
+
+    getOrderBy: function(criteria, defaultValue) {
+        if (criteria && criteria.dbField) {
+            return criteria.dbField + (criteria.direction ? " " + criteria.direction : "");
+        }
+        return defaultValue;
+    },
+
+    sortList:  function(list, criteria) {
+        if (list && criteria && criteria.field) {
+            var sortedList = _.sortBy(list, function(item){
+                return item[criteria.field].toLowerCase();
+            });
+            if (criteria.direction && criteria.direction == this.SORT_DESC)
+                sortedList.reverse();
+            return sortedList;
+        }
+    },
+    // Get seletecd item or default to first item
+    getSelection: function(page, viewName){
+        var value;
+        var view = M.ViewManager.getView(page, viewName);
+        if (view) {
+            value =  view.getSelection();
+            if (!value && $.isArray(view.value) && view.value.length > 0) {
+                value = view.value[0];
+            }
+            if ($.isArray(value) && value.length == 1) {
+                value = value[0];
+            }
+            else if (typeof(value) === 'object') {
+                value = value.value;
+            }
+        } else {
+            M.Logger.log("View '"+ viewName +"' does not exists in '"+page+"'");
+        }
+        return value ? value : '';
+    },
+   // Set selection item or default to first item
+    setSelection: function(page, viewName, value) {
+        var view = M.ViewManager.getView(page, viewName);
+        if (view) {
+            if (value) {
+                view.setSelection(value);
+            } else {
+                value = view.value;
+                if ($.isArray(value) && value.length > 0) {
+                    value = value[0];
+                    if (typeof(value) === 'object')
+                        view.setSelection(value.value);
+                    else
+                        view.setSelection(value);
+                }
+            }
+        } else {
+            M.Logger.log("View '"+ viewName +"' does not exists in '"+page+"'");
+        }
+        return value ? value : '';
+    },
+
+    // get value of a view
+    getViewValue: function(page, viewName){
+        var value;
+        var view = M.ViewManager.getView(page, viewName);
+        if (view) {
+            value = view.value;
+        } else {
+            M.Logger.log("View '"+viewName+"' does not exists in '"+page+"'");
+        }
+        return value ? value : '';
+    },
+
+    // set value of a view
+    setViewValue: function(page, viewName, value){
+        var view = M.ViewManager.getView(page, viewName);
+        if (view) {
+            view.setValue(value ? value : '');
+        } else {
+            M.Logger.log("View '"+viewName+"' does not exists in '"+page+"'");
+        }
+        return value ? value : '';
+    },
+
+    // convert html to text
+    htmlToText: function(html) {
+        var str=html.replace(/<br>|<br\/>/gi, "\n");
+        str=str.replace(/<\/p>/gi, "\n");
+        str=str.replace(/<\/div>/gi, "\n");
+        str=str.replace(/&nbsp;/gi, " ");
+        str=str.replace(/<(?:.|\s)*?>/g, "");
+        return str;
+    },
+
+    // limit string length to len
+    limitString: function(str, len) {
+        if (len > 0 && str && str.length > len) {
+            return str.substr(0,len) + "..";
+        }
+        return str;
+    }
+});

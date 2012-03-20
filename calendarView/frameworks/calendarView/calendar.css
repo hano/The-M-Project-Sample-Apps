@@ -1,0 +1,310 @@
+    /**
+    *
+    * CalenderView
+    *
+    */
+    .calendar_view {
+        height: 695px;
+        overflow: hidden;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+    /*Fuer termin ansicht weil laenger*/
+    .calendar_view.long {
+        /*min-height is the referenz for the calendar.js to know the height without whole day events*/
+        min-height: 970px;
+        height: 970px;
+        overflow: hidden;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+    .calendar_view .timeline {
+        position: absolute;
+        width: 5%;
+        xmin-width: 56px;
+        height: 100%;
+        background: #FFF;
+    }
+
+    .calendar_view .timeline p {
+        border-top: 1px solid #FFF;
+        xheight: 25px;
+        xheight: 4.16%;
+        height: 65px;
+        padding: 0;
+        margin: 0;
+        xfont-size: 0.5em;
+        font-size: 0.9em;
+        color: #444444;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .calendar_view .calendar {
+        width: 100%;
+        height: 100%;
+        background: #f2f2f2;
+        min-width: 500px;
+        padding: 10px 0 0 0;
+    }
+
+    .calendar_view .dates li {
+        border: 1px solid #999999;
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(192, 192, 192, 0.8)), color-stop(0.9, rgba(207, 207, 207, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(192, 192, 192, 0.8) 10%, rgba(207, 207, 207, 0.6) 90%);
+        min-height: 31px !important;
+    }
+
+    .calendar_view ul.datesWholeDay .exchange,
+    .calendar_view .dates li.exchange {
+
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(255, 255, 0, 0.8)), color-stop(0.9, rgba(207, 207, 207, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(255, 255, 0, 0.8) 10%, rgba(207, 207, 207, 0.6) 90%);
+        min-height: 31px !important;
+    }
+
+    /*Free 0 #FFFFFF */
+    .calendar_view ul.datesWholeDay .exchange.status_0,
+    .calendar_view .dates li.exchange.status_0 {
+
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(255, 255, 255, 0.8)), color-stop(0.9, rgba(207, 207, 207, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(255, 255, 255, 0.8) 10%, rgba(207, 207, 207, 0.6) 90%);
+    }
+    /*Tentative mit vorbehalt 1 img*/
+    .calendar_view ul.datesWholeDay .exchange.status_1,
+    .calendar_view .dates li.exchange.status_1 {
+
+        background: url("images/bg_stripe.png");
+    }
+    /*Busy gebucht 2  #869DB9 */
+    .calendar_view ul.datesWholeDay .exchange.status_2,
+    .calendar_view .dates li.exchange.status_2 {
+
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(134,157,185, 0.8)), color-stop(0.9, rgba(207, 207, 207, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(134,157,185, 0.8) 10%, rgba(207, 207, 207, 0.6) 90%);
+    }
+    /*OOF abwesend 3  #A36687 */
+    .calendar_view ul.datesWholeDay .exchange.status_3,
+    .calendar_view .dates li.exchange.status_3 {
+
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(163,102,135, 0.8)), color-stop(0.9, rgba(207, 207, 207, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(163,102,135, 0.8) 10%, rgba(207, 207, 207, 0.6) 90%);
+    }
+
+    /* span that differs a whole day appointment from an several day appointment */
+
+    span.several-day {
+        display: none;
+        height: 10px;
+        width: 10px;
+        background: red;
+        position: absolute;
+        top: 0;
+    }
+
+    .calendar_view .dates li .ui-btn-inner {
+        min-height: 31px;
+        padding: 0px 75px 0px 15px;
+    }
+
+    .calendar_view .dates li .ui-btn-inner .ui-icon {
+        margin: 0;
+    }
+
+    .calendar_view .dates li.ui-btn-hover-c {
+
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.41, rgba(165, 165, 165, 0.6)), color-stop(0.5, rgba(180, 180, 180, 0.6)));
+        background-image: -moz-linear-gradient(center bottom, rgba(165, 165, 165, 0.6) 41%, rgba(180, 180, 180, 0.6) 50%);
+    }
+
+    .calendar_view .dates li .ui-icon {
+        display: block;
+        height: 14px;
+        width: 9px;
+        background: url("images/ui-icon.png") no-repeat;
+        top: 38%;
+    }
+
+    .calendar_view .dates li .calendar_event_descr {
+        color: #a8152e;
+        xfont-size: 0.5em;
+    }
+
+    .calendar_view .dates li .calendar_event_start,
+    .calendar_view .dates li .calendar_event_end {
+        color: #333333;
+        xmin-width: 200px !important;
+
+    }
+
+    .calendar_view .calendar .half {
+        border-top: 1px dotted #bfbfbf;
+        height: 32px;
+    }
+
+    .calendar_view .date {
+        position: absolute;
+    }
+
+    .calendar_view .currentTime {
+        position: absolute;
+        left: 3%;
+        height: 11px;
+        width: 100%;
+        background: url("images/currenthour_X.png") repeat-x 3px;
+    }
+
+    .calendar_view .currentTime .currentTimeHeader {
+        background: url("images/currenthour.png") no-repeat;
+        width: 14px;
+        height: 11px;
+    }
+
+    .calendar_view .calendar_event_start {
+
+    }
+
+    .calendar_view .calendar_event_end {
+
+    }
+
+    .calendar_view .calendar_event_descr {
+
+    }
+
+    .calendar_view .ui-btn-text {
+        width: 100%;
+        min-width: 40px;
+        height: 100%;
+    }
+
+    .calendar_view .ui-btn-text .ui-link-inherit {
+        padding: 3px 0px 0px !important;
+        height: 100%;
+    }
+
+    .calendar_view .hide {
+        display: none;
+    }
+
+    .calendar_view .datesWholeDayContainer {
+        margin: 0;
+        padding: 0;
+        border-bottom: 3px solid #000;
+    }
+
+    .calendar_view ul.datesWholeDay {
+        margin: 0;
+    }
+
+    .calendar_view ul.datesWholeDay .date {
+        position: static;
+
+    }
+
+    .calendar_view .eventContainer {
+        position: relative;
+    }
+
+
+
+    /* CALENDAR */
+
+        .CalendarDatePicker .contentInDialog{
+            width:100%;
+        }
+
+
+        .CalendarDatePicker.dialogPage .dialog {
+            width: 445px;
+
+            height: 130px;
+        }
+
+        .CalendarDatePicker.dialogPage .contentInDialog {
+            min-width: 300px;
+
+        }
+
+        .CalendarDatePicker.dialogPage .contentInDialog .hasDatepicker{
+            width:100% ;
+        }
+
+
+/* CALENDAR PAGE*/
+
+    .CalendarPage .redHeader .ui-btn-right{
+        right:0;
+        padding-right:10px;
+        width:156px;
+    }
+
+    .CalendarPage .redHeader .ui-btn-right .ui-block-a
+    {
+        width:43px;
+    }
+
+    .CalendarPage .redHeader .ui-btn-right .ui-block-b
+    {
+        width:46px;
+    }
+
+    .CalendarPage .redHeader .ui-btn-right .ui-block-c
+    {
+        width:37px;
+    }
+
+    .CalendarPage .redHeader .ui-btn-right .ui-block-b .ui-btn-inner
+    {
+        display:block;
+        width:18px;
+        height:19px;
+        background:url("images/icon_tab_datepicker.png") no-repeat 8px 5px;
+    }
+
+    .CalendarPage .redHeader .ui-btn-right .ui-block-c .ui-btn-inner
+    {
+        display:block;
+        width:18px;
+        height:19px;
+        background:url("images/icon_tab_add.png") no-repeat 8px 5px;
+    }
+
+    .CalendarPage .customHeader h1.ui-title
+    {
+        margin-top:0;
+    }
+
+    /* today button */
+    .CalendarPage .contentHeader .ui-btn-right
+    {
+        right: 10px;
+    }
+
+    .CalendarPage .contentHeader .ui-btn-right .ui-btn-inner
+    {
+        padding: 5px 8px;
+    }
+
+    .CalendarPage .contentHeader  [data-role=controlgroup]
+    {
+        width: 99%;
+    }
+
+    .CalendarPage .contentHeader [data-role=controlgroup] [data-role=button]
+    {
+        width: 13% !important;
+    }
+
+    .CalendarPage .contentHeader [data-role=controlgroup] [data-role=button]:first-child,
+    .CalendarPage .contentHeader [data-role=controlgroup] [data-role=button]:last-child
+    {
+        width: 5% !important;
+    }
+
